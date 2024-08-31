@@ -1,59 +1,55 @@
 import React from 'react';
 import './App.css';
-import Todos from './Todos';
-import Footer from './Footer';
+import Todos from './components/Todos.js';
+import Footer from './components/Footer.js';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      selectAll: false,
       inputValue: '',
-      newTodo: '',
-      xItemsLeft: 0,
-      clearCompletedCP: 0,
-      selectAll: false
+      enteredTodo: [ '', false ],
+      xTodosLeft: 0,
+      isSelected: { all: 'selected', act: '', com: '' },
+      triggClearComplTodos: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.writeTodo = this.writeTodo.bind(this);
     this.selectAll = this.selectAll.bind(this);
-    this.howManyItemsLeft = this.howManyItemsLeft.bind(this);
-    this.clearCompletedTodos = this.clearCompletedTodos.bind(this);
+    this.writeTodo = this.writeTodo.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.countActiveTodos = this.countActiveTodos.bind(this);
   };
+
+  selectAll() {
+    const todosFLC = JSON.parse(localStorage.getItem("todos"));
+    const todosArr = todosFLC.map(todo => {todo[1] = !this.state.selectAll; return todo;});
+    localStorage.setItem("todos", JSON.stringify(todosArr));
+    this.countActiveTodos();
+    this.setState({ selectAll: !this.state.selectAll });
+  };
+
+  writeTodo(event) { this.setState({ inputValue: event.target.value })};
 
   handleSubmit(event) {
     event.preventDefault();
-    const todoInput = document.getElementById('todo-input');
-    const enteredValue = todoInput.value.trim();
+    const enteredValue = this.state.inputValue.trim();
     if (enteredValue) {
       this.setState({
-        newTodo: enteredValue,
+        enteredTodo: [enteredValue, !this.state.enteredTodo[1]],
         inputValue: ''
       });
     };
   };
 
-  writeTodo(event) {
-    this.setState({
-      inputValue: event.target.value
-    });
-  };
-
-  selectAll() {
-    this.setState({ selectAll: !this.state.selectAll });
-  };
-
-  howManyItemsLeft() {
-    const todoNumber = JSON.parse(localStorage.getItem("todos")).length;
-    this.setState({ xItemsLeft: todoNumber })
-  }
-
-  clearCompletedTodos() {
+  countActiveTodos() {
     const todosFLC = JSON.parse(localStorage.getItem("todos"));
-    const remainedTodos = todosFLC.filter(todo => !todo[1]);
-    localStorage.setItem("todos", JSON.stringify(remainedTodos));
-    this.setState({ clearCompletedCP: this.state.clearCompletedCP + 1 });
-    this.howManyItemsLeft();
+    const todosArr = todosFLC ? todosFLC : [];
+    let actTodNum = 0;
+    if (todosArr.length > 0) {
+      todosArr.forEach(todo => { if (!todo[1]) { actTodNum++ } });
+    };
+    this.setState({ xTodosLeft: actTodNum })
   };
 
   render() {
@@ -85,15 +81,19 @@ class App extends React.Component {
               Mark all as complete
             </label>
             <Todos
-              newTodo={this.state.newTodo}
-              howManyItemsLeft={this.howManyItemsLeft}
               selectAll={this.state.selectAll}
-              clearCompletedTodos={this.state.clearCompletedCP}
+              enteredTodo={this.state.enteredTodo}
+              whichIsSelected={this.state.isSelected}
+              countActiveTodos={this.countActiveTodos}
+              handleClearCompletedTodos={this.state.triggClearComplTodos}
             />
           </section>
           <Footer
-            xItemsLeft={this.state.xItemsLeft}
-            clearCompletedTodosBtn={this.clearCompletedTodos}
+            xTodosLeft={this.state.xTodosLeft}
+            triggerShowAllTodos={() => {this.setState({ isSelected: { all: 'selected', act: '', com: ''}})}}
+            triggerShowActiveTodos={() => {this.setState({ isSelected: { all: '', act: 'selected', com: ''}})}}
+            triggerShowCompletedTodos={() => {this.setState({ isSelected: { all: '', act: '', com: 'selected'}})}}
+            triggClearComplTodos={() => {this.setState({ triggClearComplTodos: !this.state.triggClearComplTodos })}}
           />
         </section>
       </div>
