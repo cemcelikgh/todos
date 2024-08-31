@@ -19,3 +19,7 @@ Color palette
 list-check-solid.svg
 <br>Aug 2024
 <br><https://fontawesome.com/icons/list-check?f=classic&s=solid>
+
+gh-pages
+<br>Aug 2024
+<br><https://github.com/gitname/react-gh-pages>
