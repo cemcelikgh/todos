@@ -109,7 +109,7 @@ class Todos extends React.Component {
 
   componentDidMount() {
     const todosFLC = JSON.parse(localStorage.getItem("todos"));
-    const todosArr = todosFLC ? todosFLC : []
+    const todosArr = todosFLC ? todosFLC : [];
     localStorage.setItem("todos", JSON.stringify(todosArr));
     this.setState({ todos: todosArr });
     this.props.countActiveTodos();
@@ -126,8 +126,7 @@ class Todos extends React.Component {
             className='toggle'
             type='checkbox'
             checked={todo[1]}
-            readOnly
-            onClick={this.handleToggle}
+            onChange={this.handleToggle}
           />
           <label htmlFor={'todo_' + todo[2]}
             >{todo[0]}

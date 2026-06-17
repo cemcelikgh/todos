@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Todos from './components/Todos.js';
-import Footer from './components/Footer.js';
+import Todos from './components/Todos.jsx';
+import Footer from './components/Footer.jsx';
 
 class App extends React.Component {
 
@@ -10,7 +10,7 @@ class App extends React.Component {
     this.state = {
       selectAll: false,
       inputValue: '',
-      enteredTodo: [ '', false ],
+      enteredTodo: ['', false],
       xTodosLeft: 0,
       isSelected: { all: 'selected', act: '', com: '' },
       triggClearComplTodos: false
@@ -90,9 +90,9 @@ class App extends React.Component {
           </section>
           <Footer
             xTodosLeft={this.state.xTodosLeft}
-            triggerShowAllTodos={() => {this.setState({ isSelected: { all: 'selected', act: '', com: ''}})}}
-            triggerShowActiveTodos={() => {this.setState({ isSelected: { all: '', act: 'selected', com: ''}})}}
-            triggerShowCompletedTodos={() => {this.setState({ isSelected: { all: '', act: '', com: 'selected'}})}}
+            triggerShowAllTodos={() => {this.setState({ isSelected: { all: 'selected', act: '', com: '' } })}}
+            triggerShowActiveTodos={() => {this.setState({ isSelected: { all: '', act: 'selected', com: '' } })}}
+            triggerShowCompletedTodos={() => {this.setState({ isSelected: { all: '', act: '', com: 'selected' } })}}
             triggClearComplTodos={() => {this.setState({ triggClearComplTodos: !this.state.triggClearComplTodos })}}
           />
         </section>

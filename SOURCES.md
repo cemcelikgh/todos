@@ -8,10 +8,6 @@ Original todos
 <br>Jun 2024
 <br><https://codepen.io/dmitrysharabin/pen/MWgQNYZ>
 
-todos task template
-<br>Jun 2024
-<br><https://academy.patika.dev/tr/courses/react/odev2>
-
 Color palette
 <br>Apr 2024
 <br><https://dribbble.com/shots/17066210-Stopping-to-Smell-the-Flowers>

@@ -16,17 +16,17 @@ class Footer extends React.Component {
 
   handleShowAllTodos () {
     this.props.triggerShowAllTodos();
-    this.setState({isSelected: { all: 'selected', act: '', com: ''}});
+    this.setState({ isSelected: { all: 'selected', act: '', com: '' } });
   };
 
   handleShowActiveTodos () {
     this.props.triggerShowActiveTodos();
-    this.setState({isSelected: { all: '', act: 'selected', com: ''}});
+    this.setState({ isSelected: { all: '', act: 'selected', com: '' } });
   };
 
   handleShowCompletedTodos () {
     this.props.triggerShowCompletedTodos();
-    this.setState({isSelected: { all: '', act: '', com: 'selected'}});
+    this.setState({ isSelected: { all: '', act: '', com: 'selected' } });
   };
 
   xTodosCompleted () {
